@@ -1,0 +1,2 @@
+model_checkpoint_path: "garys_nn.ckpt"
+all_model_checkpoint_paths: "garys_nn.ckpt"

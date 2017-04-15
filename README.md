@@ -48,6 +48,89 @@ The appropriate sign name is then added as the title of the given image.
 
 ![alt text](./write_up_img/random_samples.png "Random Samples from Training Data Set")
 
+We will now try to identify the distribution of the sample images in training data set. 
+
+![alt text](./write_up_img/orig_distribution.png "Distribution of Training Data")
+
+The above histogram shows that the samples are not uniformly distributed. Some labels have too many samples and some have very few. 
+This could cause the network to have less accuracy since enough samples are not available to train. 
+
+```
+unique_labels, unique_count = np.unique(y_train, return_counts=True) #done
+y_index=[]
+for idx, val in enumerate(unique_count):
+    if val <= 3000:
+        print(idx,val)
+        y_index = np.append(y_index,np.where(y_train==int(idx))) 
+```
+
+This code section will return the number of samples for each label. 
+```
+0 180
+1 1980
+2 2010
+3 1260
+4 1770
+5 1650
+6 360
+7 1290
+8 1260
+9 1320
+10 1800
+11 1170
+12 1890
+13 1920
+14 690
+15 540
+16 360
+17 990
+18 1080
+19 180
+20 300
+21 270
+22 330
+23 450
+24 240
+25 1350
+26 540
+27 210
+28 480
+29 240
+30 390
+31 690
+32 210
+33 599
+34 360
+35 1080
+36 330
+37 180
+38 1860
+39 270
+40 300
+41 210
+42 210
+``` 
+As seen from the output, some labels have as little as 180 sample images (label 0), while some have as many as 1860 (label 38)
+
+Data Augmentation
+---
+The original data set channeled through a neural network resulted in poor accuracy ~89%. Changing the layers, hyper parameters, pre-processing techniques, resulted in minor improvements in accuracy. It seemed the network won't train well on the data set if it doesn't contain enough samples. To make the training data set more uniform, the following code section augments the images, and appends them to the original data. 
+ 
+```
+new count = 8000
+while count of each label is less than new count
+randomly pick 1 to 5
+1. rotate the image
+2. translate the image
+3. add noise
+4. blur the image
+5. perform all of the above 
+append new image to training data set, also append correct label 
+end while loop
+```
+This while loop will append augmented images to the original data set until all labels have 8000 images.
+This ensures the data is uniformly distributed, further the noise, translation, blurring and rotation helps in making the model robust.
+ 
 #####################################################################################################################################################################
 A great writeup should include the [rubric points](https://review.udacity.com/#!/rubrics/481/view) as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
 

@@ -2,15 +2,12 @@
 
 Overview
 ---
-This project is an implementation of Traffic Sign Recognition using Convolutional Neural Networks. The German Traffic Sign image database is located [located here](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset). The Ipython notebook is located [here] (/Traffic_Sign_Classifier.ipynb). HTML version of .ipynb file is located [here] (/Traffic_Sign_Classifier.html)
-This is test
+This project is an implementation of Traffic Sign Recognition using Convolutional Neural Networks. 
+* The German Traffic Sign image database is located [here](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset). 
+* The Ipython notebook is located [here](/Traffic_Sign_Classifier.ipynb). 
+* HTML version of .ipynb file is located [here](/Traffic_Sign_Classifier.html).
 
-We also want you to create a detailed writeup of the project. Check out the [writeup template](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup_template.md) for this project and use it as a starting point for creating your own writeup. The writeup can be either a markdown file or a pdf document.
-
-To meet specifications, the project will require submitting three files: 
-* the Ipython notebook with the code
-* the code exported as an html file
-* a writeup report either as a markdown or pdf file 
+![alt text](./write_up_img/probability_dist.png "Probability Bar Chart")
 
 Creating a Great Writeup
 ---

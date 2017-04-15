@@ -248,6 +248,48 @@ The testing accuracy was ```0.955``` which seems fairly high and close to the hu
 
 [1] Sermanet, P., & LeCun, Y. (2011, July). Traffic sign recognition with multi-scale convolutional networks. In Neural Networks (IJCNN), The 2011 International Joint Conference on (pp. 2809-2813). IEEE. Chicago
 
+Step 3: Test a Model on New Images
+---
+Six images were downloaded from the web to test the model. 
+
+![alt text](./write_up_img/downloaded_test.png "Images downloaded from the web")
+
+These images were pre-processed (gray scaled) and ran through the network. The identified label is added as the title. 
+The following code predicts the label for these images. 
+```
+ # %% prediction code
+def predict_sign(X_data,sess):
+    pred = sess.run(tf.argmax(logits,1),feed_dict={x: X_data, keep_prob: 1.0}) 
+    #pred = sess.run(tf.nn.softmax(logits),feed_dict={x: X_data, keep_prob: 1.0}) 
+    return pred      
+with tf.Session() as sess:
+    #saver = tf.train.import_meta_graph('lenet.meta')
+    #saver.restore(sess,tf.train.latest_checkpoint('./'))
+    saver.restore(sess, './garys_nn.ckpt')
+    ident_label=predict_sign(int_images_proc, sess)
+    
+fig = plt.figure(figsize=(16,9))
+for jj in range(6):
+    #print(jj)
+    fig.add_subplot(3,2,jj+1)
+    plt.imshow(int_images[jj]) 
+    plt.title(signs_label[ident_label[jj]],fontsize=16)
+    plt.axis('off')
+plt.show()
+```
+![alt text](./write_up_img/result_download.png "Identified signs from the web")
+
+Prediction Analysis
+---
+The first image type is not part of the training database. The other five image types are known to the model, since these image types were in the training database . The model identified the other five images accurately. The model prediction accuracy is 100%.
+
+The model misidentified the first image (130 kmph) as 100 kmph sign. Although it did identify the image as speed limit sign. Since the model was not trained for this particular speed limit sign, misidentification was obvious. To avoid this from happening, all types of signs should be included in training database (for real world application). Multiple neural networks can be implemented, one to identify the numbers and other to identify the shape of the sign. 
+
+### Analyze Performance
+Plotting the probability distribution for the recognition of images downloaded from the web.
+
+![alt text](./write_up_img/probability_dist.png "Probability distribution for the signs from the web")
+
 #####################################################################################################################################################################
 A great writeup should include the [rubric points](https://review.udacity.com/#!/rubrics/481/view) as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
 

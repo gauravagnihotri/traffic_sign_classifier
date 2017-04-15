@@ -319,13 +319,13 @@ The probability data shows the network has very high confidence in identifying a
 Conclusion
 ---
 A neural network model was implemented derived from the LeNet Architecture. 
-The data set was heavily augmented (added 10 times more data). 
-The training and validation accuracy was fairly high at 98.1%. 
-The test accuracy was fairly high at 95.5%.
-Six random web images were tested on the model. 
-One of the image was not part of the training image type, hence the model misidentified it. However, it was able to identify it to the closes possible sign.
-The softmax probabilities are very high, which implies the fairly high confidence while identifying the particular image. 
-The data augmentation, gray scaling, network architecture, dropout and hyperparameters have resulted in a robust model. 
+* The data set was heavily augmented (added 10 times more data). The augmented data contained, rotated, translated, noisy and blurry images to enhance the robustness of the model.
+* The training and validation accuracy was fairly high at 98.1%. 
+* The test accuracy was at 95.5%.
+* Six random web images were tested on the model. 
+* One of the image was not part of the training image type, hence the model misidentified it. However, it was able to identify it to the closes possible sign.
+* The softmax probabilities are very high, which implies the fairly high confidence while identifying the particular image. 
+* The data augmentation technique, gray scaling, network architecture, dropout and hyperparameters have resulted in a robust traffic sign classifier network. 
 
 ### Dependencies
 This lab requires:

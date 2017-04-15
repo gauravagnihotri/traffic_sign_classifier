@@ -7,8 +7,6 @@ This project is an implementation of Traffic Sign Recognition using Convolutiona
 * The Ipython notebook is located [here](/Traffic_Sign_Classifier.ipynb). 
 * HTML version of .ipynb file is located [here](/Traffic_Sign_Classifier.html).
 
-![alt text](./write_up_img/probability_dist.png "Probability Bar Chart")
-
 Data Set Exploration
 ---
 The data set is imported by loading the pickle (*.p) files. 
@@ -33,13 +31,22 @@ print("Image data shape =", image_shape)
 print("Number of classes =", n_classes)
 ```
 
-The output looks like 
+Here is the output of the code above looks 
 ```
 Number of training examples = 34799
 Number of testing examples = 12630
 Image data shape = 32 x 32
 Number of classes = 43
 ```
+We have 34799 samples of images in the training dataset. 
+
+Taking a Deep dive in data set
+---
+Lets look at six random images from the training data set. 
+The sign names are imported into an array from the csv file. 
+The appropriate sign name is then added as the title of the given image. 
+
+![alt text](./write_up_img/random_samples.png "Random Samples from Training Data Set")
 
 #####################################################################################################################################################################
 A great writeup should include the [rubric points](https://review.udacity.com/#!/rubrics/481/view) as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  

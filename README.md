@@ -6,6 +6,7 @@ This project is an implementation of Traffic Sign Recognition using Convolutiona
 * The German Traffic Sign image database is located [here](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset). 
 * The Ipython notebook is located [here](/Traffic_Sign_Classifier.ipynb). 
 * HTML version of .ipynb file is located [here](/Traffic_Sign_Classifier.html).
+* PDF version of .ipynb file is located [here](/traffic_sign_classifier.pdf).
 
 Data Set Exploration
 ---

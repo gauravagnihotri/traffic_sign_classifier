@@ -144,6 +144,7 @@ Step 2: Design and Test a Model Architecture
 ### Pre-process the Data Set (normalization, grayscale, etc.)
 Preprocessing is done by converting the 3 channel image to 1 channel (gray scaling).
 The following function was used to conver the colored image to gray scaled. 
+Gray scaling helps in reducing the size of the data. The image data is converted to 8 bit (0-255) values for the give pixel. 
 
 ```
 def rgb2gray(rgb):
@@ -277,11 +278,14 @@ for jj in range(6):
     plt.axis('off')
 plt.show()
 ```
-![alt text](./write_up_img/result_download.png "Identified signs from the web")
 
 Prediction Analysis
 ---
-The first image type is not part of the training database. The other five image types are known to the model, since these image types were in the training database . The model identified the other five images accurately. The model prediction accuracy is 100%.
+The first image type is not part of the training database. The other five image types are known to the model, since these image types were in the training database. The 'no entry' image type is a skewed image, which may be slightly difficult to identify. The 'general caution', 'stop sign' and '120 kmph' images are fairly clear and can be distinguished. The 'priority road' image has a house behind it, which may make it difficult to identify. 
+
+![alt text](./write_up_img/result_download.png "Identified signs from the web")
+
+The model identified the other five images accurately. The model prediction accuracy is 100%.
 
 The model misidentified the first image (130 kmph) as 100 kmph sign. Although it did identify the image as speed limit sign. Since the model was not trained for this particular speed limit sign, misidentification was obvious. To avoid this from happening, all types of signs should be included in training database (for real world application). Multiple neural networks can be implemented, one to identify the numbers and other to identify the shape of the sign. 
 
@@ -289,23 +293,39 @@ The model misidentified the first image (130 kmph) as 100 kmph sign. Although it
 Plotting the probability distribution for the recognition of images downloaded from the web.
 
 ![alt text](./write_up_img/probability_dist.png "Probability distribution for the signs from the web")
+```
+TopKV2(values=array([[  9.81133401e-01,   1.88665707e-02,   2.05999395e-09,
+          5.31669951e-11,   1.22860958e-11],
+       [  1.00000000e+00,   0.00000000e+00,   0.00000000e+00,
+          0.00000000e+00,   0.00000000e+00],
+       [  1.00000000e+00,   0.00000000e+00,   0.00000000e+00,
+          0.00000000e+00,   0.00000000e+00],
+       [  1.00000000e+00,   0.00000000e+00,   0.00000000e+00,
+          0.00000000e+00,   0.00000000e+00],
+       [  1.00000000e+00,   3.97247948e-23,   1.40024832e-25,
+          1.16092576e-26,   7.37117525e-31],
+       [  1.00000000e+00,   1.26145643e-12,   8.20579282e-13,
+          1.11385741e-13,   7.83762630e-17]], dtype=float32), indices=array([[ 7,  8,  1,  2,  5],
+       [17,  0,  1,  2,  3],
+       [18,  0,  1,  2,  3],
+       [14,  0,  1,  2,  3],
+       [12, 40, 35, 38, 15],
+       [ 8,  7,  2, 38,  1]], dtype=int32))
+```
+The model above image shows the probabilities for the identification. The network is robust in identifying the last five images. However, the network has misidentified the first image (130 kmph). The network found it 98% closer to the 100 kmph sign and 2% closer to 120 kmph sign. It did identify the sign as speed limit rather than any other sign.
 
-#####################################################################################################################################################################
-A great writeup should include the [rubric points](https://review.udacity.com/#!/rubrics/481/view) as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
+The probability data shows the network has very high confidence in identifying an image as a particular traffic sign. 
 
-All that said, please be concise!  We're not looking for you to write a book here, just a brief description of how you passed each rubric point, and references to the relevant code :). 
-
-
-The Project
+Conclusion
 ---
-The goals / steps of this project are the following:
-* Load the data set
-* Explore, summarize and visualize the data set
-* Design, train and test a model architecture
-* Use the model to make predictions on new images
-* Analyze the softmax probabilities of the new images
-* Summarize the results with a written report
-#####################################################################################################################################################################
+A neural network model was implemented derived from the LeNet Architecture. 
+The data set was heavily augmented (added 10 times more data). 
+The training and validation accuracy was fairly high at 98.1%. 
+The test accuracy was fairly high at 95.5%.
+Six random web images were tested on the model. 
+One of the image was not part of the training image type, hence the model misidentified it. However, it was able to identify it to the closes possible sign.
+The softmax probabilities are very high, which implies the fairly high confidence while identifying the particular image. 
+The data augmentation, gray scaling, network architecture, dropout and hyperparameters have resulted in a robust model. 
 
 ### Dependencies
 This lab requires:

@@ -9,13 +9,40 @@ This project is an implementation of Traffic Sign Recognition using Convolutiona
 
 ![alt text](./write_up_img/probability_dist.png "Probability Bar Chart")
 
-Creating a Great Writeup
+Data Set Exploration
 ---
+The data set is imported by loading the pickle (*.p) files. 
+The data set contains training, validation and test data. 
+
+Using numpy, we can get a basic summary of the data 
+```import numpy as np
+# TODO: Number of training examples
+n_train = np.size(X_train,0)
+# TODO: Number of testing examples.
+n_test = np.size(X_test,0)
+
+# TODO: What's the shape of an traffic sign image?
+image_shape = str(np.size(X_train,1))+' x '+str(np.size(X_train,2))
+
+# TODO: How many unique classes/labels there are in the dataset.
+n_classes = np.size(np.unique(y_train),0) #done
+
+print("Number of training examples =", n_train)
+print("Number of testing examples =", n_test)
+print("Image data shape =", image_shape)
+print("Number of classes =", n_classes)```
+
+The output looks like 
+```Number of training examples = 34799
+Number of testing examples = 12630
+Image data shape = 32 x 32
+Number of classes = 43```
+
+#####################################################################################################################################################################
 A great writeup should include the [rubric points](https://review.udacity.com/#!/rubrics/481/view) as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
 
 All that said, please be concise!  We're not looking for you to write a book here, just a brief description of how you passed each rubric point, and references to the relevant code :). 
 
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup.
 
 The Project
 ---

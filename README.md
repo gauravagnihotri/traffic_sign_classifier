@@ -119,18 +119,135 @@ The original data set channeled through a neural network resulted in poor accura
 ```
 new count = 8000
 while count of each label is less than new count
-randomly pick 1 to 5
-1. rotate the image
-2. translate the image
-3. add noise
-4. blur the image
-5. perform all of the above 
+	randomly pick 1 to 5
+	1. rotate the image
+	2. translate the image
+	3. add noise
+	4. blur the image
+	5. perform all of the above 
 append new image to training data set, also append correct label 
 end while loop
 ```
 This while loop will append augmented images to the original data set until all labels have 8000 images.
 This ensures the data is uniformly distributed, further the noise, translation, blurring and rotation helps in making the model robust.
- 
+
+![alt text](./write_up_img/augmented_distribution.png "Augmented Distribution of Training Data")
+
+As seen from the above distribution we have modified the distribution of the original data set. We have also increased the number of samples by approximately 10 times. 
+
+```
+Original number of samples in training data: 34799
+Number of samples in training data after adding augmented images: 344043
+```
+Step 2: Design and Test a Model Architecture
+---
+### Pre-process the Data Set (normalization, grayscale, etc.)
+Preprocessing is done by converting the 3 channel image to 1 channel (gray scaling).
+The following function was used to conver the colored image to gray scaled. 
+
+```
+def rgb2gray(rgb):
+    return np.dot(rgb[...,:3], [0.299, 0.587, 0.114]).reshape((np.size(rgb,0),32,32,1))
+```
+### Model Architecture
+
+Layer 1: Convolutional. Input = 32x32x1 Output = 30x30x32
+
+Layer 2: Convolutional. Input  = 30x30x32 Output = 28x28x32
+
+Pooling. Input =28x28x32. Output = 14x14x32
+
+Layer 3: Convolutional. Iutput = 14x14x32 Output = 12x12x64
+
+Layer 4: Convolutional. Iutput = 12x12x64 Output = 10x10x64
+
+Pooling. Input = 10x10x64. Output = 5x5x64
+
+Layer 5: Convolutional. Iutput = 5x5x64 Output = 3x3x128
+
+Flatten. Input = 3x3x128. Output = 1152
+
+Layer 6: Fully Connected. Input = 1152. Output = 1024
+
+Layer 7: Fully Connected. Input = 1024. Output = 1024
+
+Dropout (0.65)
+
+Layer 8: Fully Connected. Input = 1024. Output = 43
+
+Dropout keep_prob: 0.65
+Batches: batch_size : 128
+Epochs : 10
+
+Hyperparameters : 
+mu = 0, sigma = 0.1 for weight initialization,
+Learning rate = 0.001
+
+Optimizer:
+Adam Optimzer
+
+```
+############################################################################
+from datetime import datetime
+############################################################################
+with tf.Session() as sess:
+   sess.run(tf.global_variables_initializer())
+   num_examples = len(X_train)
+   
+   print("Training...")
+   startTime = datetime.now()
+   print()
+   for i in range(EPOCHS):
+       startTime = datetime.now()
+       X_train, y_train = shuffle(X_train, y_train)
+       for offset in range(0, num_examples, BATCH_SIZE):
+           end = offset + BATCH_SIZE
+           batch_x, batch_y = X_train[offset:end], y_train[offset:end]
+           sess.run(training_operation, feed_dict={x: batch_x, y: batch_y, keep_prob:0.65})
+       validation_accuracy = evaluate(X_valid, y_valid)
+       print("EPOCH {} ...".format(i+1))
+       print("Validation Accuracy = {:.3f}".format(validation_accuracy))
+       print(str((datetime.now() - startTime).total_seconds()) + ' secs')
+       print()
+
+   saver.save(sess, './garys_nn.ckpt')
+   print("Model saved")
+```
+The above code was used to train the network 
+
+```
+Training...
+.
+..
+...
+....
+EPOCH 10 ...
+Validation Accuracy = 0.981
+525.860487 secs
+
+Model saved
+```
+Validation accuracy is fairly high (~98%)
+All parameters were changed to achieve highest possible validation accuracy. 
+Once  all code was in place to improve robustnessand  the accuracy was sufficiently high (> 95%), the model was saved.
+
+### Test Accuracy
+```
+############################################################################
+from datetime import datetime
+############################################################################
+with tf.Session() as sess:
+    #saver.restore(sess, tf.train.latest_checkpoint('.'))
+    #saver = tf.train.import_meta_graph('gary_nn.meta')
+    #saver.restore(sess,tf.train.latest_checkpoint('./'))
+    saver.restore(sess,'./garys_nn.ckpt')
+    test_accuracy = evaluate(X_test, y_test)
+    print("Test Accuracy = {:.3f}".format(test_accuracy))
+```
+The testing accuracy was ```0.955``` which seems fairly high and close to the human accuracy of ```0.988```[1]
+
+[1] Sermanet, P., & LeCun, Y. (2011, July). Traffic sign recognition with multi-scale convolutional networks. In Neural Networks (IJCNN), The 2011 International Joint Conference on (pp. 2809-2813). IEEE. Chicago
+
 #####################################################################################################################################################################
 A great writeup should include the [rubric points](https://review.udacity.com/#!/rubrics/481/view) as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
 
@@ -146,6 +263,7 @@ The goals / steps of this project are the following:
 * Use the model to make predictions on new images
 * Analyze the softmax probabilities of the new images
 * Summarize the results with a written report
+#####################################################################################################################################################################
 
 ### Dependencies
 This lab requires:
@@ -163,6 +281,3 @@ git clone https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project
 cd CarND-Traffic-Sign-Classifier-Project
 jupyter notebook Traffic_Sign_Classifier.ipynb
 ```
-
-### Requirements for Submission
-Follow the instructions in the `Traffic_Sign_Classifier.ipynb` notebook and write the project report using the writeup template as a guide, `writeup_template.md`. Submit the project code and writeup document.

@@ -271,7 +271,7 @@ with tf.Session() as sess:
     print("Test Accuracy = {:.3f}".format(test_accuracy))
 ```
 The testing accuracy was ```0.955``` which seems fairly high and close to the human accuracy of ```0.988```[1]
-The accuracy on the training and validation sets is 98.1% while it was 95.5% on the testing set thus It seems the model is overfitting and cannot generalize on new test image.
+The accuracy on the validation set is 98.1% while it was 95.5% on the testing set thus It seems the model is overfitting and cannot generalize on new test image.
 
 [1] Sermanet, P., & LeCun, Y. (2011, July). Traffic sign recognition with multi-scale convolutional networks. In Neural Networks (IJCNN), The 2011 International Joint Conference on (pp. 2809-2813). IEEE. Chicago
 

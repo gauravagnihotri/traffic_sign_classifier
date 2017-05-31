@@ -235,21 +235,26 @@ Once  all code was in place to improve robustnessand  the accuracy was sufficien
 
 If an iterative approach was chosen:
 * What was the first architecture that was tried?
+
 LeNet was tried as the first basic architecture that was tried.
 
 * What were some problems with the initial architecture?
+
 The validation accuracy with augmented dataset was considerably low with LeNet ~80%
 This suggests the model is overfitting and cannot generalize. 
 
 * How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
+
 LeNet architecture implementation is primarily for identifying letters from an image. The architecture does not have enough layers and filters. Increasing the layers and adding filters helped in improving the accuracy of the network on validation set. The model was over fitting since the validation accuracy was lower than the training accuracy.  
 
 * Which parameters were tuned? How were they adjusted and why?
+
 The number of layers, filter size along with strides, padding was tuned.
 The learning rate was also modified to ```rate = 0.001```
  
 
 * What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+
 Dropout Regularization method is a simple method in preventing the neural network from overfitting. The dropout technique destroys data flowing between the layer thereby relying on the reduandant representation of the data that is flowing through the network. This in practice makes the model more robust and prevents overfitting [Udacity Lesson 7: Chapter 18 - Dropout]
 
 ### Test Accuracy
